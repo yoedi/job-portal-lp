@@ -1,9 +1,8 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Hero from "@/components/organism/Hero";
-import Clients from "@/components/organism/Clients";
-import Category from "@/components/organism/Category";
+import FeatureJobs from "@/components/FeatureJobs";
 import BannerSignUp from "@/components/organism/BannerSignUp";
+import Category from "@/components/organism/Category";
+import Clients from "@/components/organism/Clients";
+import Hero from "@/components/organism/Hero";
 
 export default function Home() {
   return (
@@ -12,6 +11,7 @@ export default function Home() {
       <Clients />
       <Category />
       <BannerSignUp />
+      <FeatureJobs />
     </div>
   );
 }
