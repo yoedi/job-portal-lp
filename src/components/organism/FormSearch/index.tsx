@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
 import React, { FC } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";

@@ -5,7 +5,7 @@ interface ClientsProps {}
 
 const clients = [
   "/images/jobox.png",
-  "/images/design.png",
+  "/images/dsign.png",
   "/images/wave.png",
   "/images/twins.png",
   "/images/bubles.png",
