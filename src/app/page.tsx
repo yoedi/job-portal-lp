@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Hero from "@/components/organism/Hero";
 import Clients from "@/components/organism/Clients";
 import Category from "@/components/organism/Category";
+import BannerSignUp from "@/components/organism/BannerSignUp";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <Clients />
       <Category />
+      <BannerSignUp />
     </div>
   );
 }
