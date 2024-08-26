@@ -3,6 +3,7 @@ import { Epilogue } from "next/font/google";
 import Image from "next/image";
 import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
+import Footer from "@/components/layouts/Footer";
 
 const epilogue = Epilogue({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           </div>
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
