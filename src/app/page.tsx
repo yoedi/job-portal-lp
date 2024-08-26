@@ -3,6 +3,7 @@ import BannerSignUp from "@/components/organism/BannerSignUp";
 import Category from "@/components/organism/Category";
 import Clients from "@/components/organism/Clients";
 import Hero from "@/components/organism/Hero";
+import LatestJobs from "@/components/organism/LatestJobs";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Category />
       <BannerSignUp />
       <FeatureJobs />
+      <LatestJobs />
     </div>
   );
 }
