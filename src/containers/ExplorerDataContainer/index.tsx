@@ -1,14 +1,20 @@
+import FormFilterDynamic from "@/components/organism/FormFilterDynamic";
 import FormSearchDynamic from "@/components/organism/FormSearchDynamic";
+import { filterFormType } from "@/types";
 import Image from "next/image";
 import React, { FC } from "react";
 
 interface ExploreDataContainerProps {
   formFilter?: any;
   onSubmitFilter?: (val: any) => Promise<void>;
-  filterForm?: any;
+  filterForm: filterFormType[];
 }
 
-const ExploreDataContainer: FC<ExploreDataContainerProps> = ({}) => {
+const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
+  formFilter,
+  onSubmitFilter,
+  filterForm,
+}) => {
   return (
     <>
       <div className="bg-gray-200 px-32 pt-16 pb-14">
@@ -38,7 +44,13 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({}) => {
         </div>
       </div>
       <div className="mt-20 mb-16 px-32 flex flex-row items-start gap-10">
-        <div>Form filter data</div>
+        <div className="w-1/5">
+          <FormFilterDynamic
+            formFilter={formFilter}
+            onSubmitFilter={onSubmitFilter}
+            filterForms={filterForm}
+          />
+        </div>
         <div className="w-4/5">
           <div className="mb-8">
             <div className="text-3xl font-semibold">All Jobs</div>

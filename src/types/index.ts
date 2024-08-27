@@ -12,3 +12,9 @@ export type OptionType = {
   id: string;
   label: string;
 };
+
+export type filterFormType = {
+  label: string;
+  name: string;
+  items: OptionType[];
+};
