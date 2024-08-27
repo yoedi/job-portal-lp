@@ -20,14 +20,14 @@ const FormSearchDynamic: FC<FormSearchDynamicProps> = ({}) => {
         <div className="inline-flex gap-3 items-center">
           <AiOutlineSearch className="w-6 h-6" />
           <Input
-            className="py-8 w-[300px] border-none"
+            className="py-5 w-[350px] border-none"
             placeholder="Job Title Or Keyword"
           />
         </div>
         <div className="inline-flex gap-3 items-center">
           <HiOutlineLocationMarker className="w-6 h-6" />
           <Select>
-            <SelectTrigger className="w-[300px] border-none texty-gray-500 outline-none py-8">
+            <SelectTrigger className="w-[350px] border-none texty-gray-500 outline-none py-5">
               <SelectValue placeholder="Select a location" />
             </SelectTrigger>
             <SelectContent>
