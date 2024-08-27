@@ -7,3 +7,8 @@ export type JobType = {
   desc: string;
   categories: string[];
 };
+
+export type OptionType = {
+  id: string;
+  label: string;
+};
