@@ -1,5 +1,6 @@
 import FormFilterDynamic from "@/components/organism/FormFilterDynamic";
 import FormSearchDynamic from "@/components/organism/FormSearchDynamic";
+import JobCard from "@/components/organism/JobCard";
 import { filterFormType } from "@/types";
 import Image from "next/image";
 import React, { FC } from "react";
@@ -55,8 +56,19 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
           <div className="mb-8">
             <div className="text-3xl font-semibold">All Jobs</div>
             <div className="text-muted-foreground">Showing 73 Result</div>
-
-            <div>Job Card</div>
+          </div>
+          <div className="grid grid-cols-1 gap-7">
+            <JobCard
+              applicants={5}
+              categories={["Marketing", "Design"]}
+              desc="lorem ipsum"
+              image="/images/company2.png"
+              jobType="Full Time"
+              location="Jakarta, Indonesia"
+              name="Social Media Assistant"
+              needs={10}
+              type="Agency"
+            />
           </div>
         </div>
       </div>
