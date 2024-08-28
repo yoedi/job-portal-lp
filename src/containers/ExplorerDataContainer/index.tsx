@@ -1,7 +1,7 @@
 import FormFilterDynamic from "@/components/organism/FormFilterDynamic";
 import FormSearchDynamic from "@/components/organism/FormSearchDynamic";
 import JobCard from "@/components/organism/JobCard";
-import { filterFormType } from "@/types";
+import { filterFormType, JobType } from "@/types";
 import Image from "next/image";
 import React, { FC } from "react";
 
@@ -9,12 +9,22 @@ interface ExploreDataContainerProps {
   formFilter?: any;
   onSubmitFilter?: (val: any) => Promise<void>;
   filterForm: filterFormType[];
+  loading: boolean;
+  title: string;
+  subTitle: string;
+  data: JobType[] | any[];
+  type: string;
 }
 
 const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
   formFilter,
   onSubmitFilter,
   filterForm,
+  loading,
+  title,
+  subTitle,
+  data,
+  type,
 }) => {
   return (
     <>
@@ -24,7 +34,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
             <span className="text-5xl font-semibold">Find Your</span>
             <div className="relative">
               <span className="text-5xl font-semibold text-primary">
-                dream job
+                {title}
               </span>
               <div className="absolute top-10 w-[220] h-10">
                 <Image
@@ -36,9 +46,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
               </div>
             </div>
           </div>
-          <div className="text-center text-gray-500">
-            Find your next career at companies like HubSpot, Bata, and Dropbox
-          </div>
+          <div className="text-center text-gray-500">{subTitle}</div>
         </div>
         <div>
           <FormSearchDynamic />
@@ -58,17 +66,21 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
             <div className="text-muted-foreground">Showing 73 Result</div>
           </div>
           <div className="grid grid-cols-1 gap-7">
-            <JobCard
-              applicants={5}
-              categories={["Marketing", "Design"]}
-              desc="lorem ipsum"
-              image="/images/company2.png"
-              jobType="Full Time"
-              location="Jakarta, Indonesia"
-              name="Social Media Assistant"
-              needs={10}
-              type="Agency"
-            />
+            {loading ? (
+              <div>Loading...</div>
+            ) : type === "job" ? (
+              <>
+                {data.map((item: JobType, i: number) => (
+                  <JobCard key={i} {...item} />
+                ))}
+              </>
+            ) : (
+              <>
+                {data.map((item: any, i: number) => (
+                  <div key={i}>{item.name}</div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>
