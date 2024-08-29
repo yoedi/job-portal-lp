@@ -5,7 +5,7 @@ import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { filterFormType } from "@/types";
+import { CompanyType, filterFormType } from "@/types";
 import { CATEGORIES_OPTIONS } from "@/constans";
 import ExploreDataContainer from "@/containers/ExplorerDataContainer";
 
@@ -16,6 +16,30 @@ const FILTER_FORMS: filterFormType[] = [
     name: "industry",
     label: "Industry",
     items: CATEGORIES_OPTIONS,
+  },
+];
+
+let dataDummy: CompanyType[] = [
+  {
+    image: "/images/company2.png",
+    categories: "Marketing",
+    description: "Lorem ipsum dolor",
+    name: "",
+    totalJobs: 10,
+  },
+  {
+    image: "/images/company2.png",
+    categories: "Marketing",
+    description: "Lorem ipsum dolor",
+    name: "",
+    totalJobs: 10,
+  },
+  {
+    image: "/images/company2.png",
+    categories: "Marketing",
+    description: "Lorem ipsum dolor",
+    name: "",
+    totalJobs: 10,
   },
 ];
 
@@ -40,7 +64,7 @@ const FindCompanies: FC<FindCompaniesProps> = ({}) => {
       title="dream companies"
       subTitle="Find the dream companies you dream work for"
       type="company"
-      data={[]}
+      data={dataDummy}
     />
   );
 };
