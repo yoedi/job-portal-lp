@@ -18,7 +18,9 @@ export default function Home() {
         <Category />
         <BannerSignUp />
         <FeatureJobs />
-        <LatestJobs />
+        <div className="mt-32">
+          <LatestJobs />
+        </div>
       </div>
     </>
   );
