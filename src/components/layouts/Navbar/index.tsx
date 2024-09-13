@@ -5,11 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import MenuAuth from "@/components/organism/MenuAuth";
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({}) => {
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   return (
     <header className="px-32 py-5 flex flex-row items-start justify-between">
@@ -38,10 +42,18 @@ const Navbar: FC<NavbarProps> = ({}) => {
         </div>
       </div>
       <div className="inline-flex items-center gap-4 h-8">
-        <Button onClick={() => router.push("/auth/signin")} variant="link">
-          Login
-        </Button>
-        <Button>Sign Up</Button>
+        {session ? (
+          <div>
+            <MenuAuth />
+          </div>
+        ) : (
+          <>
+            <Button onClick={() => router.push("/signin")} variant="link">
+              Login
+            </Button>
+            <Button onClick={() => router.push("/signup")}>Sign Up</Button>
+          </>
+        )}
       </div>
     </header>
   );
