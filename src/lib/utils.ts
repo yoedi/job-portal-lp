@@ -1,7 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
-import { companyJobType } from "@/types";
+import { categoryJobType, JobType } from "@/types";
+import { supabasePubliUrl } from "./supabase";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,7 +44,45 @@ export const parsingCategories = (
         name: item.name,
         totalJobs: item._count.job,
       };
-    }) as companyJobType[];
+    }) as categoryJobType[];
+  }
+
+  return [];
+};
+
+export const parsingJobs = async (
+  data: any,
+  isLoading: boolean,
+  error: any
+) => {
+  if (!isLoading && !error && data) {
+    return await Promise.all(
+      data.map(async (item: any) => {
+        const imageName = item.Company?.CompanyOverview[0]?.image;
+        let imageUrl;
+
+        if (imageName) {
+          imageUrl = await supabasePubliUrl(imageName, "company");
+        } else {
+          imageUrl = "/images/company.png";
+        }
+
+        const job: JobType = {
+          id: item.id,
+          image: imageUrl,
+          jobType: item.jobType,
+          name: item.roles,
+          type: item.CategoryJob.name,
+          location: item.Company?.CompanyOverview[0]?.location,
+          desc: item.description,
+          category: item.CategoryJob,
+          needs: item.needs,
+          applicants: item.applicants,
+        };
+
+        return job;
+      })
+    );
   }
 
   return [];
