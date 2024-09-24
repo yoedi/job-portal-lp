@@ -1,3 +1,5 @@
+"use client";
+
 import { fetcher, parsingJobs } from "@/lib/utils";
 import { JobType } from "@/types";
 import { useCallback, useEffect, useState } from "react";

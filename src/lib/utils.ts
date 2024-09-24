@@ -78,6 +78,7 @@ export const parsingJobs = async (
           category: item.CategoryJob,
           needs: item.needs,
           applicants: item.applicants,
+          skills: item.requiredSkills,
         };
 
         return job;
