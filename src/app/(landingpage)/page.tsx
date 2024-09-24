@@ -1,4 +1,4 @@
-import FeatureJobs from "@/components/FeatureJobs";
+import FeatureJobs from "@/components/organism/FeatureJobs";
 import BannerSignUp from "@/components/organism/BannerSignUp";
 import Category from "@/components/organism/Category";
 import Clients from "@/components/organism/Clients";

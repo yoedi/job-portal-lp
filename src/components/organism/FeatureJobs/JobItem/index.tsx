@@ -1,8 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { categoryJobType, JobType } from "@/types";
+import { JobType } from "@/types";
 import Image from "next/image";
-import { describe } from "node:test";
-import React, { FC } from "react";
+import { FC } from "react";
 
 interface JobItemProps extends JobType {}
 
