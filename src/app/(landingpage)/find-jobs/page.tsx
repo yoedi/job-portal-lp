@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { filterFormType, JobType } from "@/types";
 import { CATEGORIES_OPTIONS } from "@/constans";
+import useCategoryJobFilter from "@/hooks/useCategoryJobFilter";
 
 const FILTER_FORMS: filterFormType[] = [
   {
@@ -20,7 +21,7 @@ const FILTER_FORMS: filterFormType[] = [
 const dummyData: JobType[] = [
   {
     applicants: 5,
-    categories: ["Marketing", "Design"],
+    category: ["Marketing", "Design"],
     desc: "lorem ipsum",
     image: "/images/company2.png",
     jobType: "Full Time",
@@ -32,6 +33,8 @@ const dummyData: JobType[] = [
 ];
 
 export default function FindJobsPage() {
+  const { filters } = useCategoryJobFilter();
+
   const formFilter = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),
     defaultValues: {
@@ -46,7 +49,7 @@ export default function FindJobsPage() {
     <ExploreDataContainer
       formFilter={formFilter}
       onSubmitFilter={onSubmitFormFilter}
-      filterForm={FILTER_FORMS}
+      filterForm={filters}
       loading={false}
       title="dream job"
       subTitle="Find your next career at companies like HubSpot, Bata, and Dropbox"

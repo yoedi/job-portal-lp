@@ -10,7 +10,7 @@ import { categoryJobType } from "@/types";
 interface CategoryProps {}
 
 const Category: FC<CategoryProps> = ({}) => {
-  const { data, isLoading, error } = useSWR("/api/job/categories", fetcher);
+  const { data, isLoading, error } = useSWR("/api/jobs/categories", fetcher);
 
   const categories = useMemo(
     () => parsingCategories(data, isLoading, error),
