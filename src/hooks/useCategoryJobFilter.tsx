@@ -1,12 +1,12 @@
-"use client";
-
 import { fetcher, parsingCategoriesToOptions } from "@/lib/utils";
 import { filterFormType } from "@/types";
 import { useMemo } from "react";
 import useSWR from "swr";
 
 const useCategoryJobFilter = () => {
-  const { data, isLoading, error } = useSWR("/api/jobs/featured", fetcher);
+  const { data, isLoading, error } = useSWR("/api/jobs/categories", fetcher);
+
+  console.log({ data });
 
   const categories = useMemo(
     () => parsingCategoriesToOptions(data, isLoading, error),

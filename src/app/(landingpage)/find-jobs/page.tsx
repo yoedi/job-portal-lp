@@ -1,40 +1,15 @@
 "use client";
 
 import ExploreDataContainer from "@/containers/ExplorerDataContainer";
+import useCategoryJobFilter from "@/hooks/useCategoryJobFilter";
+import useJobs from "@/hooks/useJobs";
 import { formFilterSchema } from "@/lib/form-schema";
-import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { filterFormType, JobType } from "@/types";
-import { CATEGORIES_OPTIONS } from "@/constans";
-import useCategoryJobFilter from "@/hooks/useCategoryJobFilter";
-
-const FILTER_FORMS: filterFormType[] = [
-  {
-    name: "categories",
-    label: "Categories",
-    items: CATEGORIES_OPTIONS,
-  },
-];
-
-const dummyData: JobType[] = [
-  {
-    applicants: 5,
-    category: ["Marketing", "Design"],
-    desc: "lorem ipsum",
-    image: "/images/company2.png",
-    jobType: "Full Time",
-    location: "Jakarta, Indonesia",
-    name: "Social Media Assistant",
-    needs: 10,
-    type: "Agency",
-  },
-];
 
 export default function FindJobsPage() {
-  const { filters } = useCategoryJobFilter();
-
   const formFilter = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),
     defaultValues: {
@@ -42,19 +17,28 @@ export default function FindJobsPage() {
     },
   });
 
+  const { filters } = useCategoryJobFilter();
+
+  const [categories, setCategories] = useState<string[]>([]);
+
   const onSubmitFormFilter = async (val: z.infer<typeof formFilterSchema>) =>
-    console.log(val);
+    setCategories(val.categories);
+
+  useEffect(() => {
+    mutate();
+  }, [categories]);
+  const { jobs, isLoading, mutate } = useJobs();
 
   return (
     <ExploreDataContainer
       formFilter={formFilter}
       onSubmitFilter={onSubmitFormFilter}
-      filterForm={filters}
-      loading={false}
+      filterForm={filters ?? []}
+      loading={isLoading}
       title="dream job"
       subTitle="Find your next career at companies like HubSpot, Bata, and Dropbox"
       type="job"
-      data={dummyData}
+      data={jobs}
     />
   );
 }
