@@ -17,7 +17,7 @@ export default function FindJobsPage() {
     },
   });
 
-  const { filters } = useCategoryJobFilter();
+  const { filter } = useCategoryJobFilter();
 
   const [categories, setCategories] = useState<string[]>([]);
 
@@ -27,13 +27,14 @@ export default function FindJobsPage() {
   useEffect(() => {
     mutate();
   }, [categories]);
-  const { jobs, isLoading, mutate } = useJobs();
+
+  const { jobs, isLoading, mutate } = useJobs(categories);
 
   return (
     <ExploreDataContainer
       formFilter={formFilter}
       onSubmitFilter={onSubmitFormFilter}
-      filterForm={filters ?? []}
+      filterForm={filter ?? []}
       loading={isLoading}
       title="dream job"
       subTitle="Find your next career at companies like HubSpot, Bata, and Dropbox"

@@ -1,13 +1,15 @@
 "use client";
 
-import { formFilterCompanySchema } from "@/lib/form-schema";
-import React, { FC } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CompanyType, filterFormType } from "@/types";
 import { CATEGORIES_OPTIONS } from "@/constans";
 import ExploreDataContainer from "@/containers/ExplorerDataContainer";
+import useCategoryCompanyFilter from "@/hooks/useCategoryCompanyFilter";
+import useCompanies from "@/hooks/useCompanies";
+import { formFilterCompanySchema } from "@/lib/form-schema";
+import { CompanyType, filterFormType } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 interface FindCompaniesProps {}
 
@@ -19,30 +21,6 @@ const FILTER_FORMS: filterFormType[] = [
   },
 ];
 
-let dataDummy: CompanyType[] = [
-  {
-    image: "/images/company2.png",
-    categories: "Marketing",
-    description: "Lorem ipsum dolor",
-    name: "",
-    totalJobs: 10,
-  },
-  {
-    image: "/images/company2.png",
-    categories: "Marketing",
-    description: "Lorem ipsum dolor",
-    name: "",
-    totalJobs: 10,
-  },
-  {
-    image: "/images/company2.png",
-    categories: "Marketing",
-    description: "Lorem ipsum dolor",
-    name: "",
-    totalJobs: 10,
-  },
-];
-
 const FindCompanies: FC<FindCompaniesProps> = ({}) => {
   const formFilter = useForm<z.infer<typeof formFilterCompanySchema>>({
     resolver: zodResolver(formFilterCompanySchema),
@@ -51,20 +29,30 @@ const FindCompanies: FC<FindCompaniesProps> = ({}) => {
     },
   });
 
+  const { filter } = useCategoryCompanyFilter();
+
+  const { companies, isLoading, mutate } = useCompanies(categories);
+
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    mutate();
+  }, [categories]);
+
   const onSubmitFormFilter = async (
     val: z.infer<typeof formFilterCompanySchema>
-  ) => console.log(val);
+  ) => setCategories(val.industry);
 
   return (
     <ExploreDataContainer
       formFilter={formFilter}
       onSubmitFilter={onSubmitFormFilter}
-      filterForm={FILTER_FORMS}
-      loading={false}
+      filterForm={filter}
+      loading={isLoading}
       title="dream companies"
       subTitle="Find the dream companies you dream work for"
       type="company"
-      data={dataDummy}
+      data={companies}
     />
   );
 };
