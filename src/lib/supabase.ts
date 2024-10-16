@@ -5,7 +5,7 @@ export const supabaseClient = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY!!
 );
 
-export const supabasePubliUrl = async (filename: string, bucket: string) => {
+export const supabasePublicUrl = async (filename: string, bucket: string) => {
   const {
     data: { publicUrl },
   } = await supabaseClient.storage

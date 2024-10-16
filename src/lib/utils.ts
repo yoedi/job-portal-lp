@@ -2,7 +2,8 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
 import { categoryJobType, CompanyType, JobType, OptionType } from "@/types";
-import { supabasePubliUrl } from "./supabase";
+import { supabasePublicUrl } from "./supabase";
+import dayjs from "dayjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -62,7 +63,7 @@ export const parsingJobs = async (
         let imageUrl;
 
         if (imageName) {
-          imageUrl = await supabasePubliUrl(imageName, "company");
+          imageUrl = await supabasePublicUrl(imageName, "company");
         } else {
           imageUrl = "/images/company.png";
         }
@@ -101,7 +102,7 @@ export const parsingCompanies = async (
         let imageUrl;
 
         if (imageName) {
-          imageUrl = await supabasePubliUrl(imageName, "company");
+          imageUrl = await supabasePublicUrl(imageName, "company");
         } else {
           imageUrl = "/images/company.png";
         }
@@ -148,4 +149,8 @@ export const parsingCategoriesToOptions = (
   }
 
   return [];
+};
+
+export const dateFormat = (date: Date | string, format = "DD MMM YYYY") => {
+  return dayjs(date).format(format);
 };
