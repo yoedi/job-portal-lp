@@ -20,16 +20,70 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import UploadField from "../UploadField";
+import { useSession } from "next-auth/react";
+import { supabaseUploadFile } from "@/lib/supabase";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
-interface FormModalApplyProps {}
+interface FormModalApplyProps {
+  image: string | undefined;
+  roles: string | undefined;
+  location: string | undefined;
+  jobType: string | undefined;
+  id: string | undefined;
+  isApply: number | undefined;
+}
 
-const FormModalApply: FC<FormModalApplyProps> = ({}) => {
+const FormModalApply: FC<FormModalApplyProps> = ({
+  image,
+  roles,
+  location,
+  jobType,
+  id,
+  isApply,
+}) => {
   const form = useForm<z.infer<typeof formApplySchema>>({
     resolver: zodResolver(formApplySchema),
   });
 
-  const onSubmit = async (val: z.infer<typeof formApplySchema>) =>
-    console.log(val);
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof formApplySchema>) => {
+    try {
+      const { filename, error } = await supabaseUploadFile(
+        val.resume,
+        "applicant"
+      );
+
+      const reqData = {
+        userId: session?.user.id,
+        jobId: id,
+        resume: filename,
+        coverLetter: val.coverLetter,
+        linkedin: val.linkedIn,
+        phone: val.phone,
+        portfolio: val.portfolio,
+        previouseJobTitle: val.previousJobTitle,
+      };
+
+      if (error) {
+        throw "System Error";
+      }
+      await fetch("/api/jobs/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reqData),
+      });
+
+      await toast({ title: "Success", description: "Apply job success" });
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
+      await toast({ title: "Error", description: "Please try again" });
+    }
+  };
 
   return (
     <Dialog>
@@ -42,19 +96,12 @@ const FormModalApply: FC<FormModalApplyProps> = ({}) => {
         <div>
           <div className="inline-flex items-center gap-4">
             <div>
-              <Image
-                src="/images/company2.png"
-                alt="/images/company2.png"
-                width={60}
-                height={60}
-              />
+              <Image src={image!!} alt={image!!} width={60} height={60} />
             </div>
             <div>
-              <div className="text-lg font-semibold">
-                Social Media Assisstant
-              </div>
+              <div className="text-lg font-semibold">{roles}</div>
               <div className="text-gray-500">
-                Agency . Jakarta, Indonesia . Full-Time
+                {location} . {jobType}
               </div>
             </div>
           </div>
