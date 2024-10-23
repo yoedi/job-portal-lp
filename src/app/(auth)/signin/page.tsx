@@ -94,7 +94,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
           </Button>
 
           <div className="text-gray-500 text-sm mt-6">
-            Don't have an account{" "}
+            Don`t have an account{" "}
             <Link href="/signup" className="text-primary font-medium">
               Sign Up
             </Link>

@@ -6,8 +6,6 @@ import useSWR from "swr";
 const useCategoryJobFilter = () => {
   const { data, isLoading, error } = useSWR("/api/jobs/categories", fetcher);
 
-  console.log({ data });
-
   const categories = useMemo(
     () => parsingCategoriesToOptions(data, isLoading, error),
     [data, error, isLoading]
